@@ -13,7 +13,7 @@ if __name__ == "__main__":
     else:
         status = {}
     time_now = int(time.time() * 1000)
-    yymmddhhmm = time.strftime("%y%m%d%H%M", time.localtime(time.time()))
+    yymmddhhmm = time.strftime("%Y-%m-%dT%H:%M", time.localtime(time.time()))
     status[yymmddhhmm] = {
         "timestamp": time_now,
         "status": res.status_code,
