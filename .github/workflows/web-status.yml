@@ -1,6 +1,9 @@
 name: Status
 
 on:
+  push:
+    branches:
+      - main
   schedule:
     - cron: '0,10,20,30,40,50 * * * *'
   workflow_dispatch:
@@ -21,7 +24,7 @@ jobs:
       - name: Install dependencies
         run: |
           python3 -m pip install --upgrade pip
-          pip install requests json
+          pip install requests
       - name: Run script
         run: python3 status.py
       - name: Commit changes
