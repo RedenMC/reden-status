@@ -29,5 +29,7 @@ jobs:
         run: python3 status.py
       - name: Commit changes
         run: |
-          git commit --author='Reden<info@redenmc.com>' -a -m "Update status"
+          git config --global user.email "info@redenmc.com"
+          git config --global user.name "Reden"
+          git commit -am "Update status"
           git push
