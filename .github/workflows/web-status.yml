@@ -31,5 +31,6 @@ jobs:
         run: |
           git config --global user.email "info@redenmc.com"
           git config --global user.name "Reden"
+          git add data/*
           git commit -am "Update status"
           git push
