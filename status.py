@@ -31,4 +31,5 @@ if __name__ == "__main__":
         }
         json.dump(status, open("data/status.json", "w"))
         print("Network failure.", e)
+        raise e # Rethrow the exception to let the job fail
     
