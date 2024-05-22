@@ -52,11 +52,12 @@ function App() {
   return <>
     <Box sx={{flexGrow: 1, width: "90vw"}}>
       <LineChart
-          height={200}
+          height={300}
           axisHighlight={{x: "line"}}
           xAxis={
             [{
               data: filteredData.map((status) => status.timestamp),
+              area: true,
               valueFormatter: (value) => {
                 return new Date(value).toLocaleString()
               }
@@ -87,6 +88,7 @@ function App() {
       <Box>
         <button onClick={filterByDate}>OK</button>
       </Box>
+      Copyright (c) <a href="https://redenmc.com/">RedenMC</a> All rights reserved.
     </LocalizationProvider>
   </>
 }

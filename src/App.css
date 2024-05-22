@@ -10,12 +10,6 @@
   padding: 1.5em;
   transition: all 300ms;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cff);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafb);
-}
 
 @keyframes logo-spin {
   from {
