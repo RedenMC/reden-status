@@ -55,18 +55,20 @@ function App() {
           height={300}
           axisHighlight={{x: "line"}}
           xAxis={
-            [{
-              data: filteredData.map((status) => status.timestamp),
-              area: true,
-              valueFormatter: (value) => {
-                return new Date(value).toLocaleString()
+            [
+              {
+                data: filteredData.map((status) => status.timestamp),
+                valueFormatter: (value) => {
+                  return new Date(value).toLocaleString()
+                }
               }
-            }]
+            ]
           }
           series={[
             {
               curve: "linear",
               showMark: false,
+              area: true,
               data: filteredData.map((status) => status.value),
               valueFormatter: (value, {dataIndex}) => {
                 const data = filteredData[dataIndex];
