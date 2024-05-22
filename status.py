@@ -7,14 +7,16 @@ import json
 if __name__ == "__main__":
     if not os.path.exists("data"):
         os.mkdir("data")
+    time_now = int(time.time() * 1000)
     if os.path.exists("data/status.json"):
         status = json.load(open("data/status.json"))
+        status = {k: v for k, v in status.items() if time_now - v["timestamp"] < 7 * 24 * 60 * 60 * 1000}
     else:
         status = {}
-    time_now = int(time.time() * 1000)
     yymmddhhmm = time.strftime("%Y-%m-%dT%H:%M", time.localtime(time.time()))
     res = None
     e = None
+    ex = None
     for i in range(5):
         try:
             res = requests.get("https://redenmc.com/api/status")
@@ -28,7 +30,7 @@ if __name__ == "__main__":
             "online_count": -1
         }
         json.dump(status, open("data/status.json", "w"))
-        print("Network failure.", e)
+        print("Network failure.", ex)
         exit(1)
     else:
         status[yymmddhhmm] = {
@@ -36,7 +38,6 @@ if __name__ == "__main__":
             "status": res.status_code,
             "online_count": res.json()["online"]
         }
-        status = {k: v for k, v in status.items() if time_now - v["timestamp"] < 7 * 24 * 60 * 60 * 1000}
         json.dump(status, open("data/status.json", "w"))
         print("Status updated. Time: " + yymmddhhmm + " Status: " + str(res.status_code) + " Online: "
               + str(res.json()["online"]) + " players.")
