@@ -13,8 +13,24 @@ if __name__ == "__main__":
         status = {}
     time_now = int(time.time() * 1000)
     yymmddhhmm = time.strftime("%Y-%m-%dT%H:%M", time.localtime(time.time()))
-    try:
-        res = requests.get("https://redenmc.com/api/status")
+    res = None
+    e = None
+    for i in range(5):
+        try:
+            res = requests.get("https://redenmc.com/api/status")
+            break
+        except Exception as e:
+            ex = e
+    if res is None:
+        status[yymmddhhmm] = {
+            "timestamp": time_now,
+            "status": 0,
+            "online_count": -1
+        }
+        json.dump(status, open("data/status.json", "w"))
+        print("Network failure.", e)
+        exit(1)
+    else:
         status[yymmddhhmm] = {
             "timestamp": time_now,
             "status": res.status_code,
@@ -23,13 +39,3 @@ if __name__ == "__main__":
         json.dump(status, open("data/status.json", "w"))
         print("Status updated. Time: " + yymmddhhmm + " Status: " + str(res.status_code) + " Online: "
               + str(res.json()["online"]) + " players.")
-    except Exception as e:
-        status[yymmddhhmm] = {
-            "timestamp": time_now,
-            "status": 0,
-            "online_count": -1
-        }
-        json.dump(status, open("data/status.json", "w"))
-        print("Network failure.", e)
-        raise e # Rethrow the exception to let the job fail
-    
