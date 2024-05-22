@@ -36,6 +36,7 @@ if __name__ == "__main__":
             "status": res.status_code,
             "online_count": res.json()["online"]
         }
+        status = {k: v for k, v in status.items() if time_now - v["timestamp"] < 7 * 24 * 60 * 60 * 1000}
         json.dump(status, open("data/status.json", "w"))
         print("Status updated. Time: " + yymmddhhmm + " Status: " + str(res.status_code) + " Online: "
               + str(res.json()["online"]) + " players.")
