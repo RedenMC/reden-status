@@ -17,9 +17,12 @@ if __name__ == "__main__":
     res = None
     e = None
     ex = None
+    status_code = -1
     for i in range(5):
         try:
             res = requests.get("https://redenmc.com/api/status")
+            status_code = res.status_code
+            res = res.json()
             break
         except Exception as e:
             ex = e
@@ -35,8 +38,8 @@ if __name__ == "__main__":
     else:
         status[yymmddhhmm] = {
             "timestamp": time_now,
-            "status": res.status_code,
-            "online_count": res.json()["online"]
+            "status": status_code,
+            "online_count": res["online"]
         }
         json.dump(status, open("data/status.json", "w"))
         print("Status updated. Time: " + yymmddhhmm + " Status: " + str(res.status_code) + " Online: "
