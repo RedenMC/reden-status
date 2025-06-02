@@ -43,4 +43,4 @@ if __name__ == "__main__":
         }
         json.dump(status, open("data/status.json", "w"))
         print("Status updated. Time: " + yymmddhhmm + " Status: " + str(status_code) + " Online: "
-              + str(res.json()["online"]) + " players.")
+              + str(res["online"]) + " players.")
